@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Peta KML Koba</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    #map { 
+      height: 100vh; 
+      width: 100%; 
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Peta KML Koba</h2>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Plugin untuk KML -->
+  <script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js"></script>
+
+  <script>
+    // Buat map
+    var map = L.map('map').setView([-2.75, 107.65], 11); // koordinat default (Bangka)
+
+    // Tambah layer peta dasar
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    // Load file KML (pastikan nama file sama persis, misalnya peta.kml)
+    omnivore.kml('peta.kml').on('ready', function(e) {
+      map.fitBounds(e.target.getBounds());
+    }).addTo(map);
+  </script>
+</body>
+</html>
